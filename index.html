@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="./index.css"></link>
+  </head>
+  <body>
+    <div>
+      <h2>tusc</h2>
+      <div class="container">
+        <input type="text" id="textbox" size="43"></input>
+        <button id="download">Download</button>
+      </div>
+      <h3 id="status"></h3>
+    </div>
+  </body>
+  <script src="./dist/renderer.js"></script>
+</html>
