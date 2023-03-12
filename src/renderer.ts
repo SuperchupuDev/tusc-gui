@@ -3,7 +3,6 @@ declare const tusc: {
 };
 
 declare const userProfile: string;
-
 declare const openExternal: (url: string) => Promise<void>;
 
 // rome-ignore lint/style/noNonNullAssertion: useless here
@@ -33,9 +32,14 @@ downloadButton.addEventListener('click', async () => {
     });
     status.appendChild(link);
     textbox.value = '';
-  }).catch(() => {
-    status.innerText = 'Download failed! Make sure you got the URL right.';
+  }).catch((error) => {
+    const code = document.createElement('code');
+    code.appendChild(document.createTextNode(error.message));
+    status.innerText = "Download failed! Make sure you got the URL right.";
     status.children[0]?.remove();
+    status.append(document.createElement('br'));
+    status.append(code);
+    console.error(error);
   }).finally(() => {
     downloadButton.disabled = false
   });
