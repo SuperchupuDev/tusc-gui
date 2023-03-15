@@ -38,3 +38,8 @@ button {
   border-radius: 3px;
   padding: 5px;
 }
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

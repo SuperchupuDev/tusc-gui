@@ -8,7 +8,7 @@
     "baseUrl": "src",
     "rootDir": "src",
 
-    "sourceMap": true,
+    "inlineSourceMap": true,
     "outDir": "dist",
     "pretty": true,
     "noEmitOnError": true,

@@ -1,3 +1,4 @@
+import type { TuscOptions } from '@superchupu/tusc';
 import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('versions', {
@@ -7,7 +8,8 @@ contextBridge.exposeInMainWorld('versions', {
 });
 
 contextBridge.exposeInMainWorld('tusc', {
-  run: (url: string | null, path: string, openExplorer: boolean) => ipcRenderer.invoke('tusc.run', url, path, openExplorer)
+  run: (options: TuscOptions) => ipcRenderer.invoke('tusc.run', options),
+  update: () => ipcRenderer.invoke('tusc.update')
 });
 
 contextBridge.exposeInMainWorld('userProfile', process.env.USERPROFILE);

@@ -1,10 +1,12 @@
 import path from 'node:path';
+import { run, type TuscOptions, update } from '@superchupu/tusc';
 import { app, BrowserWindow, ipcMain, nativeImage, shell } from 'electron';
-import { run } from '@superchupu/tusc';
 
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+
+const ytDlpPath = path.join(__dirname, '../node_modules/@superchupu/tusc/dist/yt-dlp.exe');
 
 const createWindow = async () => {
   const { default: fixPath } = await import('fix-path');
@@ -21,7 +23,8 @@ const createWindow = async () => {
       preload: path.join(__dirname, 'preload.js')
     }
   })
-  ipcMain.handle('tusc.run', (event: unknown, url: string | null, path: string, openExplorer: boolean) => run(url, path, openExplorer));
+  ipcMain.handle('tusc.run', (event: unknown, options: TuscOptions) => run({ ytDlpPath, ...options }));
+  ipcMain.handle('tusc.update', () => update(ytDlpPath));
   ipcMain.handle('openExternal', (event: unknown, url: string) => shell.openExternal(url));
   win.loadFile('index.html')
 }
