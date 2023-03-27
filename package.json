@@ -7,7 +7,10 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "format": "prettier --write .",
+    "check": "prettier --check .",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "tusc",
