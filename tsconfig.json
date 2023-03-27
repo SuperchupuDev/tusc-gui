@@ -4,10 +4,11 @@
     "lib": ["es2022", "DOM"],
 
     "module": "CommonJS",
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node",
     "baseUrl": "src",
     "rootDir": "src",
 
+    "jsx": "react-jsx",
     "inlineSourceMap": true,
     "outDir": "dist",
     "pretty": true,
@@ -15,6 +16,10 @@
 
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+
+    "paths": {
+      "*": ["node_modules/*"]
+    },
 
     "strict": true,
 

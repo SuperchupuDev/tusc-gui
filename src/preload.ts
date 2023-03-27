@@ -4,7 +4,7 @@ import { contextBridge, ipcRenderer } from 'electron';
 contextBridge.exposeInMainWorld('versions', {
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
+  electron: () => process.versions.electron
 });
 
 contextBridge.exposeInMainWorld('tusc', {
@@ -12,17 +12,12 @@ contextBridge.exposeInMainWorld('tusc', {
   update: () => ipcRenderer.invoke('tusc.update')
 });
 
+contextBridge.exposeInMainWorld('on', (channel: string, listener: Function) =>
+  ipcRenderer.on(channel, (event, ...args) => listener(...args))
+);
+
+contextBridge.exposeInMainWorld('off', (channel: string, listener: (...args: any[]) => void) =>
+  ipcRenderer.removeListener(channel, listener)
+);
+
 contextBridge.exposeInMainWorld('userProfile', process.env.USERPROFILE);
-
-contextBridge.exposeInMainWorld('openExternal', (url: string) => ipcRenderer.invoke('openExternal', url));
-
-window.addEventListener('DOMContentLoaded', () => {
-  const replaceText = (selector: string, text: string) => {
-    const element = document.getElementById(selector)
-    if (element) element.innerText = text
-  }
-
-  for (const dependency of ['chrome', 'node', 'electron'] as const) {
-    replaceText(`${dependency}-version`, process.versions[dependency])
-  }
-})

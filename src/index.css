@@ -19,11 +19,17 @@ code {
   font-size: 0.8em;
 }
 
+#progressbar {
+  font-size: 1em;
+}
+
 .container {
   display: inline-block; /* keep on same line */
 }
 
-input {
+button,
+input,
+select {
   background-color: #333;
   color: white;
   border: 1px solid #555;
@@ -31,15 +37,9 @@ input {
   padding: 5px;
 }
 
-button {
-  background-color: #333;
-  color: white;
-  border: 1px solid #555;
-  border-radius: 3px;
-  padding: 5px;
-}
-
-button:disabled {
+button:disabled,
+input:disabled,
+select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

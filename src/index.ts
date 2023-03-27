@@ -2,41 +2,62 @@ import path from 'node:path';
 import { run, type TuscOptions, update } from '@superchupu/tusc';
 import { app, BrowserWindow, ipcMain, nativeImage, shell } from 'electron';
 
+declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
+declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const ytDlpPath = path.join(__dirname, '../node_modules/@superchupu/tusc/dist/yt-dlp.exe');
+const ytDlpPath = app.isPackaged
+  ? path.join(process.resourcesPath, './yt-dlp.exe')
+  : path.join(__dirname, '../../node_modules/@superchupu/tusc/dist/yt-dlp.exe');
 
 const createWindow = async () => {
-  const { default: fixPath } = await import('fix-path');
-  fixPath();
-  const win = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     resizable: false,
     autoHideMenuBar: true,
     title: '',
+    backgroundColor: '#000000',
     icon: nativeImage.createEmpty(),
     webPreferences: {
       devTools: true,
-      preload: path.join(__dirname, 'preload.js')
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
     }
-  })
-  ipcMain.handle('tusc.run', (event: unknown, options: TuscOptions) => run({ ytDlpPath, ...options }));
+  });
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
+  });
+
+  ipcMain.handle('tusc.run', (event: unknown, options: TuscOptions) =>
+    run({
+      ytDlpPath,
+      onData: data => {
+        mainWindow.webContents.send('tuscData', data);
+      },
+      onErrorData: data => {
+        mainWindow.webContents.send('tuscErrorData', data);
+      },
+      ...options
+    })
+  );
   ipcMain.handle('tusc.update', () => update(ytDlpPath));
-  ipcMain.handle('openExternal', (event: unknown, url: string) => shell.openExternal(url));
-  win.loadFile('index.html')
-}
+
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+};
 
 app.whenReady().then(async () => {
-  await createWindow()
+  await createWindow();
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
 });
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
-})
+  if (process.platform !== 'darwin') app.quit();
+});
