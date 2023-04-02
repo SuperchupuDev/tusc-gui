@@ -17,24 +17,24 @@
     "gui"
   ],
   "author": "Superchupu",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.5",
-    "@electron-forge/maker-squirrel": "^6.0.5",
-    "@electron-forge/maker-zip": "^6.0.5",
-    "@electron-forge/plugin-webpack": "^6.0.5",
-    "@types/react": "^18.0.29",
+    "@electron-forge/cli": "^6.1.0",
+    "@electron-forge/maker-squirrel": "^6.1.0",
+    "@electron-forge/maker-zip": "^6.1.0",
+    "@electron-forge/plugin-webpack": "^6.1.0",
+    "@types/react": "^18.0.32",
     "@types/react-dom": "^18.0.11",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
     "css-loader": "^6.7.3",
-    "electron": "^23.2.0",
+    "electron": "^23.2.1",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
     "node-loader": "^2.0.0",
     "prettier": "^2.8.7",
     "style-loader": "^3.3.2",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.3"
   },
   "dependencies": {
     "@superchupu/tusc": "^0.4.1",
