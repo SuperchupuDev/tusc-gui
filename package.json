@@ -42,7 +42,7 @@
     "typescript": "^5.0.3"
   },
   "dependencies": {
-    "@superchupu/tusc": "^0.4.3",
+    "@superchupu/tusc": "^0.4.4",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

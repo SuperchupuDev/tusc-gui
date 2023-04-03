@@ -20,4 +20,7 @@ contextBridge.exposeInMainWorld('off', (channel: string, listener: (...args: any
   ipcRenderer.removeListener(channel, listener)
 );
 
-contextBridge.exposeInMainWorld('userProfile', process.env.USERPROFILE);
+contextBridge.exposeInMainWorld(
+  'userProfile',
+  process.platform === 'win32' ? process.env.USERPROFILE : process.env.HOME
+);
