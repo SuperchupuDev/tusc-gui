@@ -2,6 +2,7 @@ name: Build
 on: [push, pull_request]
 jobs:
   build_on_linux:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,6 +21,7 @@ jobs:
         run: npm run make
 
   build_on_mac:
+    permissions: write-all
     runs-on: macos-latest
     steps:
       - name: Checkout repository
@@ -38,6 +40,7 @@ jobs:
         run: npm run make
 
   build_on_win:
+    permissions: write-all
     runs-on: windows-latest
     steps:
       - name: Checkout repository
