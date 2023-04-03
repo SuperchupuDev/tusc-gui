@@ -14,8 +14,6 @@ If you for some reason, prefer to do this in the command line, you can use [tusc
 
 ## Installation
 
-For now, the only supported platform is Windows
-
 You can download the latest release from [here](https://github.com/SuperchupuDev/tusc-gui/releases/latest)
 
 [tusc]: https://github.com/SuperchupuDev/tusc

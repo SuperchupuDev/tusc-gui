@@ -1,6 +1,6 @@
 {
   "name": "tusc-gui",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Tusc GUI",
   "main": ".webpack/main",
   "private": true,
@@ -8,6 +8,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "publish": "electron-forge publish",
     "format": "prettier --write .",
     "check": "prettier --check .",
     "typecheck": "tsc --noEmit"
@@ -20,9 +21,13 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@electron-forge/cli": "^6.1.0",
+    "@electron-forge/maker-deb": "^6.1.0",
+    "@electron-forge/maker-dmg": "^6.1.0",
+    "@electron-forge/maker-rpm": "^6.1.0",
     "@electron-forge/maker-squirrel": "^6.1.0",
     "@electron-forge/maker-zip": "^6.1.0",
     "@electron-forge/plugin-webpack": "^6.1.0",
+    "@electron-forge/publisher-github": "^6.1.0",
     "@types/react": "^18.0.32",
     "@types/react-dom": "^18.0.11",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
@@ -37,7 +42,7 @@
     "typescript": "^5.0.3"
   },
   "dependencies": {
-    "@superchupu/tusc": "^0.4.1",
+    "@superchupu/tusc": "^0.4.3",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

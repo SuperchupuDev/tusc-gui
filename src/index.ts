@@ -9,9 +9,10 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+const ytDlp = process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp';
 const ytDlpPath = app.isPackaged
-  ? path.join(process.resourcesPath, './yt-dlp.exe')
-  : path.join(__dirname, '../../node_modules/@superchupu/tusc/dist/yt-dlp.exe');
+  ? path.join(process.resourcesPath, `./${ytDlp}`)
+  : path.join(__dirname, `../../node_modules/@superchupu/tusc/dist/${ytDlp}`);
 
 const createWindow = async () => {
   const mainWindow = new BrowserWindow({
