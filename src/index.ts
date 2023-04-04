@@ -37,6 +37,10 @@ const createWindow = async () => {
   ipcMain.handle('tusc.run', (event: unknown, options: TuscOptions) =>
     run({
       ytDlpPath,
+      additionalFlags:
+        process.platform === 'darwin' && !options.additionalFlags
+          ? ['--ffmpeg-location', '/usr/local/bin/ffmpeg']
+          : options.additionalFlags ?? [],
       onData: data => {
         mainWindow.webContents.send('tuscData', data);
       },
