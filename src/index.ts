@@ -2,8 +2,8 @@ import path from 'node:path';
 import { run, type TuscOptions, update } from '@superchupu/tusc';
 import { app, BrowserWindow, ipcMain, nativeImage, shell } from 'electron';
 
-declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
-declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string | null;
+declare const MAIN_WINDOW_VITE_NAME: string;
 
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -25,7 +25,7 @@ const createWindow = async () => {
     icon: nativeImage.createEmpty(),
     webPreferences: {
       devTools: true,
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
@@ -52,7 +52,11 @@ const createWindow = async () => {
   );
   ipcMain.handle('tusc.update', () => update(ytDlpPath));
 
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+  } else {
+    mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
+  }
 };
 
 app.whenReady().then(async () => {
